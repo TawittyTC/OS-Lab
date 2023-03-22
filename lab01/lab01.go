@@ -114,56 +114,56 @@ func command_expire2() {
 func command_io1_c1() {
 	insertQueue(io1, cpu1)
 	cpu1 = ""
-	command_expire()
+	command_expire1()
 }
 
 // Command function Insert in I/O Queue 1 from CPU 2
 func command_io1_c2() {
 	insertQueue(io1, cpu2)
 	cpu2 = ""
-	command_expire()
+	command_expire2()
 }
 
 // Command function Insert in I/O Queue 2 from CPU 1
 func command_io2_c1() {
 	insertQueue(io2, cpu1)
 	cpu1 = ""
-	command_expire()
+	command_expire1()
 }
 
 // Command function Insert in I/O Queue 2 from CPU 2
 func command_io2_c2() {
 	insertQueue(io2, cpu2)
 	cpu2 = ""
-	command_expire()
+	command_expire2()
 }
 
 // Command function Insert in I/O Queue 3 from CPU 1
 func command_io3_c1() {
 	insertQueue(io3, cpu1)
 	cpu1 = ""
-	command_expire()
+	command_expire1()
 }
 
 // Command function Insert in I/O Queue 3 from CPU 2
 func command_io3_c2() {
 	insertQueue(io3, cpu2)
 	cpu2 = ""
-	command_expire()
+	command_expire2()
 }
 
 // Command function Insert in I/O Queue 4 from CPU 1
 func command_io4_c1() {
 	insertQueue(io4, cpu1)
 	cpu1 = ""
-	command_expire()
+	command_expire1()
 }
 
 // Command function Insert in I/O Queue 4 from CPU 2
 func command_io4_c2() {
 	insertQueue(io4, cpu2)
 	cpu2 = ""
-	command_expire()
+	command_expire2()
 }
 
 // Command function Delete in I/O Queue 1
