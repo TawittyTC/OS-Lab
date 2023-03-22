@@ -1,4 +1,5 @@
 package main
+
 // Import the necessary packages
 import (
 	"bufio"
@@ -6,17 +7,18 @@ import (
 	"os"
 	"strings"
 )
+
 // Declare the global variables
 var (
-	cpu1   string
-	cpu2 string
+	cpu1  string
+	cpu2  string
 	ready []string
 	io1   []string
 	io2   []string
-	io3 []string
-	io4 []string
-
+	io3   []string
+	io4   []string
 )
+
 // Initialize the global variables
 func initialized() {
 	cpu1 = ""
@@ -28,6 +30,7 @@ func initialized() {
 	io4 = make([]string, 10)
 
 }
+
 // Show the process
 func showProcess() {
 	fmt.Printf("\n-----------\n")
@@ -59,6 +62,7 @@ func showProcess() {
 	}
 	fmt.Printf("\n\nCommand > ")
 }
+
 // Get the command
 func getCommand() string {
 	reader := bufio.NewReader(os.Stdin)
@@ -71,20 +75,21 @@ func getCommand() string {
 func command_new(p string) {
 	if cpu1 == "" {
 		cpu1 = p
-	}else if cpu2 == ""{
+	} else if cpu2 == "" {
 		cpu2 = p
 	} else {
 		insertQueue(ready, p)
 	}
 }
 
-// Command functions Delete Process in CPU
+// Command functions Terminate Process in CPU1
 func command_terminate1() {
 	if cpu1 != "" {
 		cpu1 = deleteQueue(ready)
 	}
 }
 
+// Command functions Terminate Process in CPU2
 func command_terminate2() {
 	if cpu2 != "" {
 		cpu2 = deleteQueue(ready)
