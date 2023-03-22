@@ -70,6 +70,8 @@ func getCommand() string {
 func command_new(p string) {
 	if cpu == "" {
 		cpu = p
+	}else if cpu2 == ""{
+		cpu2 = p
 	} else {
 		insertQueue(ready, p)
 	}
@@ -90,26 +92,50 @@ func command_expire() {
 	cpu = p
 }
 
-func command_io1() {
+func command_io1_c1() {
 	insertQueue(io1, cpu)
 	cpu = ""
 	command_expire()
 }
 
-func command_io2() {
+func command_io1_c2() {
+	insertQueue(io1, cpu2)
+	cpu2 = ""
+	command_expire()
+}
+
+func command_io2_c1() {
 	insertQueue(io2, cpu)
 	cpu = ""
 	command_expire()
 }
 
-func command_io3() {
+func command_io2_c2() {
+	insertQueue(io2, cpu2)
+	cpu = ""
+	command_expire()
+}
+
+func command_io3_c1() {
 	insertQueue(io3, cpu)
 	cpu = ""
 	command_expire()
 }
 
-func command_io4() {
+func command_io3_c2() {
+	insertQueue(io3, cpu2)
+	cpu = ""
+	command_expire()
+}
+
+func command_io4_c1() {
 	insertQueue(io4, cpu)
+	cpu = ""
+	command_expire()
+}
+
+func command_io4_c2() {
+	insertQueue(io4, cpu2)
 	cpu = ""
 	command_expire()
 }
@@ -204,8 +230,14 @@ func main() {
 			command_expire()
 		case "io1":
 			command_io1()
+		case "io1_2":
+			command_io1_2()
 		case "io2":
 			command_io2()
+		case "io3":
+			command_io3()
+		case "io4":
+			command_io4()
 		case "io1x":
 			command_io1x()
 		case "io2x":
