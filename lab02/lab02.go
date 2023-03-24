@@ -42,13 +42,13 @@ func showProcess() {
 	fmt.Printf("CPU2 -> %s\n", cpu2)
 	fmt.Printf("ready1 -> ")
 	for i := range ready1 {
-		fmt.Printf("%s ", ready1[i])
+		fmt.Printf("%s", ready1[i])
 	}
-	fmt.Printf("ready2 -> ")
+	fmt.Printf("\nready2 -> ")
 	for i := range ready2 {
 		fmt.Printf("%s ", ready2[i])
 	}
-	fmt.Printf("ready3 -> ")
+	fmt.Printf("\nready3 -> ")
 	for i := range ready3 {
 		fmt.Printf("%s ", ready3[i])
 	}
@@ -300,12 +300,19 @@ func main() {
 	initialized()
 	for {
 		showProcess()
-		  := getCommand()
+		command := getCommand()
 		commandx := strings.Split(command, " ")
 		switch commandx[0] {
 		case "exit":
 			return
-		case "new":
+		case "new1":
+			for i := range commandx {
+				if i == 0 {
+					continue
+				}
+				command_new1(commandx[i])
+			}
+		case "new2":
 			for i := range commandx {
 				if i == 0 {
 					continue
