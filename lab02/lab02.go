@@ -38,7 +38,7 @@ func initialized() {
 // Show the process
 func showProcess() {
 	fmt.Printf("\n-----------\n")
-	fmt.Printf("CPU1   -> %s\n", cpu1)
+	fmt.Printf("CPU1 -> %s\n", cpu1)
 	fmt.Printf("CPU2 -> %s\n", cpu2)
 	fmt.Printf("ready1 -> ")
 	for i := range ready1 {
@@ -204,7 +204,7 @@ func command_io4_c2() {
 }
 
 // Command function Delete in I/O Queue 1
-func command_io1x() {
+func command_io1x1() {
 	p := deleteQueue1(io1)
 	if p == "" {
 		return
@@ -215,6 +215,33 @@ func command_io1x() {
 		insertQueue1(ready1, p)
 	}
 }
+
+func command_io1x2() {
+	p := deleteQueue2(io1)
+	if p == "" {
+		return
+	}
+	if cpu2 == "" {
+		cpu2 = p
+	} else {
+		insertQueue2(ready2, p)
+	}
+}
+
+func command_io1x3() {
+	p := deleteQueue3(io1)
+	if p == "" {
+		return
+	}
+	if cpu1 == "" {
+		cpu1 = p
+	} else {
+		insertQueue3(ready3, p)
+	}
+}
+
+
+
 
 // Command function Delete in I/O Queue 2
 func command_io2x() {
@@ -374,8 +401,12 @@ func main() {
 			command_io4_c1()
 		case "io42":
 			command_io4_c2()
-		case "io1x":
-			command_io1x()
+		case "io1x1":
+			command_io1x1()
+		case "io1x2":
+			command_io1x2()
+		case "io1x3":
+			command_io1x3()
 		case "io2x":
 			command_io2x()
 		case "io3x":
