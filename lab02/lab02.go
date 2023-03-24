@@ -100,7 +100,7 @@ func command_new2(p string) {
 	} else if cpu2 == "" {
 		cpu2 = p
 	} else {
-		insertQueue2(ready1, p)
+		insertQueue2(ready2, p)
 	}
 }
 
@@ -110,7 +110,7 @@ func command_new3(p string) {
 	} else if cpu2 == "" {
 		cpu2 = p
 	} else {
-		insertQueue3(ready1, p)
+		insertQueue3(ready3, p)
 	}
 }
 
@@ -256,28 +256,28 @@ func command_io4x() {
 }
 
 // Function to insert in queue
-func insertQueue1(q []string, data string) {
-	for i := range q {
-		if q[i] == "" {
-			q[i] = data
+func insertQueue1(q1 []string, data string) {
+	for i := range q1 {
+		if q1[i] == "" {
+			q1[i] = data
 			break
 		}
 	}
 }
 
-func insertQueue2(q []string, data string) {
-	for i := range q {
-		if q[i] == "" {
-			q[i] = data
+func insertQueue2(q2 []string, data string) {
+	for i := range q2 {
+		if q2[i] == "" {
+			q2[i] = data
 			break
 		}
 	}
 }
 
-func insertQueue3(q []string, data string) {
-	for i := range q {
-		if q[i] == "" {
-			q[i] = data
+func insertQueue3(q3 []string, data string) {
+	for i := range q3 {
+		if q3[i] == "" {
+			q3[i] = data
 			break
 		}
 	}
@@ -300,7 +300,7 @@ func main() {
 	initialized()
 	for {
 		showProcess()
-		command := getCommand()
+		  := getCommand()
 		commandx := strings.Split(command, " ")
 		switch commandx[0] {
 		case "exit":
