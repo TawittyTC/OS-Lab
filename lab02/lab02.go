@@ -244,7 +244,7 @@ func command_io1x3() {
 
 
 // Command function Delete in I/O Queue 2
-func command_io2x() {
+func command_io2x1() {
 	p := deleteQueue1(io2)
 	if p == "" {
 		return
@@ -256,8 +256,33 @@ func command_io2x() {
 	}
 }
 
+func command_io2x2(){
+	p := deleteQueue2(io2)
+	if p == "" {
+		return
+	}
+	if cpu1 == "" {
+		cpu1 = p
+	} else {
+		insertQueue2(ready2, p)
+	}
+}
+
+func command_io2x3(){
+	p := deleteQueue3(io2)
+	if p == "" {
+		return
+	}
+	if cpu1 == "" {
+		cpu1 = p
+	} else {
+		insertQueue3(ready3, p)
+	}
+}
+
+
 // Command function Delete in I/O Queue 3
-func command_io3x() {
+func command_io3x1() {
 	p := deleteQueue1(io3)
 	if p == "" {
 		return
@@ -269,8 +294,33 @@ func command_io3x() {
 	}
 }
 
+func command_io3x2() {
+	p := deleteQueue2(io3)
+	if p == "" {
+		return
+	}
+	if cpu1 == "" {
+		cpu1 = p
+	} else {
+		insertQueue2(ready2, p)
+	}
+}
+
+func command_io3x3() {
+	p := deleteQueue3(io3)
+	if p == "" {
+		return
+	}
+	if cpu1 == "" {
+		cpu1 = p
+	} else {
+		insertQueue3(ready3, p)
+	}
+}
+
+
 // Command function Delete in I/O Queue 4
-func command_io4x() {
+func command_io4x1() {
 	p := deleteQueue1(io4)
 	if p == "" {
 		return
@@ -281,6 +331,31 @@ func command_io4x() {
 		insertQueue1(ready1, p)
 	}
 }
+
+func command_io4x2() {
+	p := deleteQueue2(io4)
+	if p == "" {
+		return
+	}
+	if cpu1 == "" {
+		cpu1 = p
+	} else {
+		insertQueue2(ready2, p)
+	}
+}
+
+func command_io4x3() {
+	p := deleteQueue3(io4)
+	if p == "" {
+		return
+	}
+	if cpu1 == "" {
+		cpu1 = p
+	} else {
+		insertQueue3(ready3, p)
+	}
+}
+
 
 // Function to insert in queue
 func insertQueue1(q1 []string, data string) {
@@ -407,12 +482,24 @@ func main() {
 			command_io1x2()
 		case "io1x3":
 			command_io1x3()
-		case "io2x":
-			command_io2x()
-		case "io3x":
-			command_io3x()
-		case "io4x":
-			command_io4x()
+		case "io2x1":
+			command_io2x1()
+		case "io2x2":
+			command_io2x2()
+		case "io2x3":
+			command_io2x3()
+		case "io3x1":
+			command_io3x1()
+		case "io3x2":
+			command_io3x2()
+		case "io3x3":
+			command_io3x3()
+		case "io4x1":
+			command_io4x1()
+		case "io4x2":
+			command_io4x2()
+		case "io4x3":
+			command_io4x3()
 		default:
 			fmt.Printf("\nSorry !!! Command Error !!!\n")
 		}
