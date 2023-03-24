@@ -284,15 +284,39 @@ func insertQueue3(q3 []string, data string) {
 }
 
 // Function to delete in queue
-func deleteQueue1(q []string) string {
-	result := q[0]
-	for i := range q {
+func deleteQueue1(q1 []string) string {
+	result := q1[0]
+	for i := range q1 {
 		if i == 0 {
 			continue
 		}
-		q[i-1] = q[i]
+		q1[i-1] = q1[i]
 	}
-	q[9] = ""
+	q1[9] = ""
+	return result
+}
+
+func deleteQueue2(q2 []string) string {
+	result := q2[0]
+	for i:= range q2 {
+		if i == 0 {
+			continue
+		}
+		q2[i-1] = q2[i]
+	}
+	q2[9] = ""
+	return	result
+}
+
+func deleteQueue3(q3 []string) string {
+	result := q3[0]
+	for i := range q3 {
+		if i == 0 {
+			continue
+		}
+		q3[i-1] = q3[i]
+	}
+	q3[9] = ""
 	return result
 }
 
@@ -317,7 +341,14 @@ func main() {
 				if i == 0 {
 					continue
 				}
-				command_new1(commandx[i])
+				command_new2(commandx[i])
+			}
+		case "new3":
+			for i := range commandx {
+				if i == 0 {
+					continue
+				}
+				command_new3(commandx[i])
 			}
 		case "terminate1":
 			command_terminate1()
