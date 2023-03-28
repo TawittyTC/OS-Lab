@@ -19,6 +19,10 @@ var (
 	io2    []string
 	io3    []string
 	io4    []string
+
+	plt1 = 0
+	plt2 = 0
+	plt3 = 0
 )
 
 // Initialize the global variables
@@ -83,6 +87,26 @@ func getCommand() string {
 	return data
 }
 
+func priority(p string){
+	if p == "1"{
+		plt1++
+	} else if p == "2"{
+		plt2++
+	} else if p == "3"{
+		plt3++
+	}
+}
+
+func resetPriority(){
+	if plt1 == 3 {
+		plt1 = 0
+	}else if plt2 == 3 {
+		plt2 = 0
+	}else if plt3 == 3 {
+		plt3 = 0
+	}
+}
+
 // Command functions
 func command_new1(p string) {
 	if cpu1 == "" {
@@ -129,7 +153,7 @@ func command_terminate2() {
 }
 
 // Command functions Expire in ready1 Queue
-func command_expire1() {
+func command_expire11() {
 	p := deleteQueue1(ready1)
 	if p == "" {
 		return
@@ -138,7 +162,26 @@ func command_expire1() {
 	cpu1 = p
 }
 
-func command_expire2() {
+func command_expire12() {
+	p := deleteQueue2(ready1)
+	//delete queue from ready1 because we move process from ready to cpu1 and cpu1 is empty
+	if p == "" {
+		return
+	}
+	insertQueue2(ready2, cpu1)
+	cpu1 = p
+}
+
+func command_expire13() {
+	p := deleteQueue3(ready1)
+	if p == "" {
+		return
+	}
+	insertQueue3(ready3, cpu1)
+	cpu1 = p
+}
+
+func command_expire21() {
 	p := deleteQueue1(ready1)
 	if p == "" {
 		return
@@ -147,60 +190,80 @@ func command_expire2() {
 	cpu2 = p
 }
 
+
+func command_expire22() {
+	p := deleteQueue2(ready1)
+	//delete queue from ready1 because we move process from ready to cpu1 and cpu1 is empty
+	if p == "" {
+		return
+	}
+	insertQueue2(ready2, cpu2)
+	cpu1 = p
+}
+
+func command_expire23() {
+	p := deleteQueue3(ready1)
+	if p == "" {
+		return
+	}
+	insertQueue3(ready3, cpu2)
+	cpu1 = p
+}
+
 // Command function Insert in I/O Queue 1 from CPU 1
 func command_io1_c1() {
 	insertQueue1(io1, cpu1)
 	cpu1 = ""
-	command_expire1()
+	command_expire11()
 }
 
 // Command function Insert in I/O Queue 1 from CPU 2
 func command_io1_c2() {
 	insertQueue1(io1, cpu2)
 	cpu2 = ""
-	command_expire2()
+	command_expire21()
 }
 
 // Command function Insert in I/O Queue 2 from CPU 1
 func command_io2_c1() {
 	insertQueue1(io2, cpu1)
 	cpu1 = ""
-	command_expire1()
+	command_expire11()
 }
 
 // Command function Insert in I/O Queue 2 from CPU 2
 func command_io2_c2() {
 	insertQueue1(io2, cpu2)
 	cpu2 = ""
-	command_expire2()
+	command_expire21()
 }
 
 // Command function Insert in I/O Queue 3 from CPU 1
 func command_io3_c1() {
 	insertQueue1(io3, cpu1)
 	cpu1 = ""
-	command_expire1()
+	command_expire11()
 }
 
 // Command function Insert in I/O Queue 3 from CPU 2
 func command_io3_c2() {
 	insertQueue1(io3, cpu2)
 	cpu2 = ""
-	command_expire2()
+	command_expire21()
 }
 
 // Command function Insert in I/O Queue 4 from CPU 1
 func command_io4_c1() {
 	insertQueue1(io4, cpu1)
 	cpu1 = ""
-	command_expire1()
+	command_expire11()
 }
 
 // Command function Insert in I/O Queue 4 from CPU 2
 func command_io4_c2() {
 	insertQueue1(io4, cpu2)
 	cpu2 = ""
-	command_expire2()
+	command_expire21()
 }
 
 // Command function Delete in I/O Queue 1
@@ -456,10 +519,19 @@ func main() {
 			command_terminate1()
 		case "terminate2":
 			command_terminate2()
-		case "expire1":
-			command_expire1()
-		case "expire2":
-			command_expire2()
+		case "expire11":
+			command_expire11()
+		case "expire12":
+			command_expire12()
+		case "expire13":
+			command_expire13()
+		case "expire21":
+			command_expire21()
+		case "expire22":
+			command_expire22()
+		case "expire23":
+			command_expire23()
+
 		case "io11":
 			command_io1_c1()
 		case "io12":
