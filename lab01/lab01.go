@@ -1,6 +1,5 @@
 package main
 
-// Import the necessary packages
 import (
 	"bufio"
 	"fmt"
@@ -8,9 +7,8 @@ import (
 	"strings"
 )
 
-// Declare the global variables
 var (
-	cpu1  string
+	cpu   string
 	cpu2  string
 	ready []string
 	io1   []string
@@ -19,23 +17,20 @@ var (
 	io4   []string
 )
 
-// Initialize the global variables
 func initialized() {
-	cpu1 = ""
+	cpu = ""
 	cpu2 = ""
 	ready = make([]string, 10)
 	io1 = make([]string, 10)
 	io2 = make([]string, 10)
 	io3 = make([]string, 10)
 	io4 = make([]string, 10)
-
 }
 
-// Show the process
 func showProcess() {
-	fmt.Printf("\n-----------\n")
-	fmt.Printf("CPU1   -> %s\n", cpu1)
-	fmt.Printf("CPU2 -> %s\n", cpu2)
+
+	fmt.Printf("\nCPU1  -> %s\n", cpu)
+	fmt.Printf("CPU2  -> %s\n", cpu2)
 	fmt.Printf("Ready -> ")
 	for i := range ready {
 		fmt.Printf("%s ", ready[i])
@@ -63,7 +58,6 @@ func showProcess() {
 	fmt.Printf("\n\nCommand > ")
 }
 
-// Get the command
 func getCommand() string {
 	reader := bufio.NewReader(os.Stdin)
 	data, _ := reader.ReadString('\n')
@@ -71,41 +65,39 @@ func getCommand() string {
 	return data
 }
 
-// Command functions
 func command_new(p string) {
-	if cpu1 == "" {
-		cpu1 = p
+	if cpu == "" {
+		cpu = p
 	} else if cpu2 == "" {
 		cpu2 = p
 	} else {
 		insertQueue(ready, p)
 	}
+
 }
 
-// Command functions Terminate Process in CPU1
-func command_terminate1() {
-	if cpu1 != "" {
-		cpu1 = deleteQueue(ready)
+func command_terminate_cpu() {
+	if cpu != "" {
+		cpu = deleteQueue(ready)
+	} else if cpu2 != "" {
+		cpu2 = deleteQueue(ready)
 	}
 }
 
-// Command functions Terminate Process in CPU2
-func command_terminate2() {
+func command_terminate_cpu2() {
 	if cpu2 != "" {
 		cpu2 = deleteQueue(ready)
 	}
 }
 
-// Command functions Expire in Ready Queue
 func command_expire1() {
 	p := deleteQueue(ready)
 	if p == "" {
 		return
 	}
-	insertQueue(ready, cpu1)
-	cpu1 = p
+	insertQueue(ready, cpu)
+	cpu = p
 }
-
 func command_expire2() {
 	p := deleteQueue(ready)
 	if p == "" {
@@ -115,115 +107,111 @@ func command_expire2() {
 	cpu2 = p
 }
 
-// Command function Insert in I/O Queue 1 from CPU 1
-func command_io1_c1() {
-	insertQueue(io1, cpu1)
-	cpu1 = ""
+func command_io1_cpu() {
+	insertQueue(io1, cpu)
+	cpu = ""
 	command_expire1()
 }
 
-// Command function Insert in I/O Queue 1 from CPU 2
-func command_io1_c2() {
+func command_io2_cpu() {
+	insertQueue(io2, cpu)
+	cpu = ""
+	command_expire1()
+}
+
+func command_io3_cpu() {
+	insertQueue(io3, cpu)
+	cpu = ""
+	command_expire1()
+}
+
+func command_io4_cpu() {
+	insertQueue(io4, cpu)
+	cpu = ""
+	command_expire1()
+}
+
+// --------Cpu2----------
+func command_io1_cpu2() {
 	insertQueue(io1, cpu2)
 	cpu2 = ""
 	command_expire2()
 }
 
-// Command function Insert in I/O Queue 2 from CPU 1
-func command_io2_c1() {
-	insertQueue(io2, cpu1)
-	cpu1 = ""
-	command_expire1()
-}
-
-// Command function Insert in I/O Queue 2 from CPU 2
-func command_io2_c2() {
+func command_io2_cpu2() {
 	insertQueue(io2, cpu2)
 	cpu2 = ""
 	command_expire2()
 }
 
-// Command function Insert in I/O Queue 3 from CPU 1
-func command_io3_c1() {
-	insertQueue(io3, cpu1)
-	cpu1 = ""
-	command_expire1()
-}
-
-// Command function Insert in I/O Queue 3 from CPU 2
-func command_io3_c2() {
+func command_io3_cpu2() {
 	insertQueue(io3, cpu2)
 	cpu2 = ""
 	command_expire2()
 }
 
-// Command function Insert in I/O Queue 4 from CPU 1
-func command_io4_c1() {
-	insertQueue(io4, cpu1)
-	cpu1 = ""
-	command_expire1()
-}
-
-// Command function Insert in I/O Queue 4 from CPU 2
-func command_io4_c2() {
+func command_io4_cpu2() {
 	insertQueue(io4, cpu2)
 	cpu2 = ""
 	command_expire2()
 }
 
-// Command function Delete in I/O Queue 1
 func command_io1x() {
 	p := deleteQueue(io1)
 	if p == "" {
 		return
 	}
-	if cpu1 == "" {
-		cpu1 = p
+	if cpu == "" {
+		cpu = p
+	} else if cpu2 == "" {
+		cpu2 = p
 	} else {
 		insertQueue(ready, p)
 	}
 }
 
-// Command function Delete in I/O Queue 2
 func command_io2x() {
 	p := deleteQueue(io2)
 	if p == "" {
 		return
 	}
-	if cpu1 == "" {
-		cpu1 = p
+	if cpu == "" {
+		cpu = p
+	} else if cpu2 == "" {
+		cpu2 = p
 	} else {
 		insertQueue(ready, p)
 	}
 }
 
-// Command function Delete in I/O Queue 3
 func command_io3x() {
 	p := deleteQueue(io3)
 	if p == "" {
 		return
 	}
-	if cpu1 == "" {
-		cpu1 = p
+	if cpu == "" {
+		cpu = p
+	} else if cpu2 == "" {
+		cpu2 = p
 	} else {
 		insertQueue(ready, p)
 	}
 }
 
-// Command function Delete in I/O Queue 4
 func command_io4x() {
 	p := deleteQueue(io4)
 	if p == "" {
 		return
 	}
-	if cpu1 == "" {
-		cpu1 = p
+	if cpu == "" {
+		cpu = p
+	} else if cpu2 == "" {
+		cpu2 = p
 	} else {
 		insertQueue(ready, p)
 	}
 }
 
-// Function to insert in queue
 func insertQueue(q []string, data string) {
 	for i := range q {
 		if q[i] == "" {
@@ -233,7 +221,6 @@ func insertQueue(q []string, data string) {
 	}
 }
 
-// Function to delete in queue
 func deleteQueue(q []string) string {
 	result := q[0]
 	for i := range q {
@@ -262,30 +249,33 @@ func main() {
 				}
 				command_new(commandx[i])
 			}
-		case "terminate1":
-			command_terminate1()
-		case "terminate2":
-			command_terminate2()
+			//terminate cpu1
+		case "ter1":
+			command_terminate_cpu()
+			//terminate cpu2
+		case "ter2":
+			command_terminate_cpu2()
 		case "expire1":
 			command_expire1()
 		case "expire2":
 			command_expire2()
-		case "io11":
-			command_io1_c1()
-		case "io12":
-			command_io1_c2()
-		case "io21":
-			command_io2_c1()
-		case "io22":
-			command_io2_c2()
-		case "io31":
-			command_io3_c1()
-		case "io32":
-			command_io3_c2()
-		case "io41":
-			command_io4_c1()
-		case "io42":
-			command_io4_c2()
+		//command io(1,2,3,4)ตามด้วย(cpu1 or cpu2)
+		case "io1cpu1":
+			command_io1_cpu()
+		case "io2cpu1":
+			command_io2_cpu()
+		case "io3cpu1":
+			command_io3_cpu()
+		case "io4cpu1":
+			command_io4_cpu()
+		case "io1cpu2":
+			command_io1_cpu2()
+		case "io2cpu2":
+			command_io2_cpu2()
+		case "io3cpu2":
+			command_io3_cpu2()
+		case "io4cpu2":
+			command_io4_cpu2()
 		case "io1x":
 			command_io1x()
 		case "io2x":
